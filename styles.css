@@ -8,64 +8,40 @@ body {
     
 }
 
-/* Navbar */
+/* Navbar container */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* padding: 5px; */
+    padding: 10px 5%;
     background-color: #e94f4f;
     color: white;
+    flex-wrap: wrap;
 }
 
+/* Logo styling */
 .logo {
     font-size: 1.5em;
     font-weight: bold;
     display: flex;
-    justify-self: flex-start;
     align-items: center;
-
-    
 }
 
-.scroll-buttons {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.scroll-btn {
-    padding: 10px 15px;
-    font-size: 16px;
-    font-weight: bold;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.scroll-btn:hover {
-    background: #0056b3;
-}
-
+/* Logo image */
 nav img {
-    width: 150px;
-    height: 100px;
+    width: 180px;
+    height: auto;
+    max-width: 100%;
 }
 
+/* Navigation links */
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 15px;
 }
 
 .nav-links li {
-    display: inline;
     padding: 10px;
 }
 
@@ -77,6 +53,42 @@ nav img {
 
 .nav-links a:hover {
     color: #006aff;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        padding: 0;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .logo {
+        font-size: 2em;
+    }
+
+    nav img {
+        width: 130px;
+    }
+
+    .nav-links a {
+        font-size: 1em;
+    }
 }
 
 /* Sections */
@@ -118,6 +130,33 @@ button:hover {
 /* Hidden Class */
 .hidden {
     display: none;
+}
+
+
+
+.scroll-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.scroll-btn {
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.scroll-btn:hover {
+    background: #0056b3;
 }
 
 .timer-container {
