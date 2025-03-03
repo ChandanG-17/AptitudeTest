@@ -13,8 +13,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 5%;
-    background-color: #e94f4f;
+    padding: 0px;
+    background-color: #f14646;
     color: white;
     flex-wrap: wrap;
 }
@@ -25,13 +25,17 @@ body {
     font-weight: bold;
     display: flex;
     align-items: center;
+    padding:0px;
+    margin: 0px;
 }
 
 /* Logo image */
 nav img {
-    width: 180px;
+    width: 150px;
     height: auto;
     max-width: 100%;
+    padding: 0px;
+    margin: 0px;
 }
 
 /* Navigation links */
@@ -52,7 +56,7 @@ nav img {
 }
 
 .nav-links a:hover {
-    color: #006aff;
+    color: #f9d10c;
 }
 
 /* Responsive Design */
@@ -79,11 +83,11 @@ nav img {
 
 @media screen and (max-width: 480px) {
     .logo {
-        font-size: 2em;
+        font-size: 1.2em;
     }
 
     nav img {
-        width: 130px;
+        width: 100px;
     }
 
     .nav-links a {
