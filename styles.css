@@ -59,6 +59,15 @@ nav img {
     color: #052ba7;
 }
 
+#TeamImg{
+    width: 50%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .navbar {
@@ -93,6 +102,11 @@ nav img {
     .nav-links a {
         font-size: 1em;
     }
+}
+
+#home img{
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Sections */
@@ -186,7 +200,7 @@ button:hover {
 
 /* Footer */
 footer {
-    background-color: #e94f4f;
+    background-color: #f14646;
     color: white;
     padding: 10px;
     text-align: center;
