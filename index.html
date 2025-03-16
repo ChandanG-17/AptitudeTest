@@ -19,12 +19,18 @@
     </nav>
     <marquee behavior="scroll" direction="left">Welcome to Eureka Team's Website</marquee>
     <div id="homediv">
+        
     <section id="home">
+        <div class="typing-container" style="padding: 20px;">
+            <span class="typing-text" style="font-weight: bold; font-size: large;"></span>
+            <span class="cursor" style="font-weight: bold; font-size: large;">|</span>
+        </div>
         <img src="img1.png" alt="TeamLogo" height="200" width="200">
         <h1>Welcome to the Aptitude Test</h1>
         <p>Test your skills and challenge yourself!</p>
         <button onclick="showSection('take-test')">Take a Test</button>
-    </section></div>
+    </section>
+    </div>
 
     <section id="about" class="hidden">
         <h2>About Team Eureka</h2>
@@ -38,7 +44,7 @@
         <input type="text" id="name">
         <label for="email">Email:</label>
         <input type="email" id="email">
-        <button onclick="startTest()">Start Test</button>
+        <button onfocus="enterFullscreen()" onclick="startTest()">Start Test</button>
     </section>
 
     <section id="test-section" class="hidden">
@@ -52,6 +58,11 @@
             </div>
             <span>Time Left: <span id="timer">40:00</span></span>
         </div>
+        <div onfocus="displayQuestions()">
+            
+            <span id="test-questions"></span>
+            <button onclick="submitTest()">Submit Test</button>
+        </div>
         <iframe id="test-questions" src="https://docs.google.com/forms/d/e/1FAIpQLSeaPaAypCbd-N-0KP5DlD8uRY-Pj1ySmTc2DSHYFXtaJBd78Q/viewform?embedded=true" width="1300" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
     <button onclick="submitTest()" style="margin-top: 10px;">Logout</button>
@@ -60,6 +71,7 @@
 
     
     <section id="thank-you" class="hidden">
+        <button onclick="exitFullscreen()">Exit Full Screen</button>
         <h2>Thank You!</h2>
         <p id="thank-you-message"></p>
     </section>
@@ -106,13 +118,41 @@
     </footer>
 
     <script>
+        const words = ["Internalize", "Empower", "Evolve"];
+        let index = 0, letterIndex = 0, isDeleting = false;
+        const typingSpeed = 150, deletingSpeed = 100, pause = 1000;
+
+        function typeEffect() {
+            const textElement = document.querySelector('.typing-text');
+            let word = words[index];
+            
+            textElement.textContent = word.slice(0, letterIndex);
+            
+            if (!isDeleting && letterIndex < word.length) {
+                letterIndex++;
+                setTimeout(typeEffect, typingSpeed);
+            } else if (isDeleting && letterIndex > 0) {
+                letterIndex--;
+                setTimeout(typeEffect, deletingSpeed);
+            } else {
+                isDeleting = !isDeleting;
+                if (!isDeleting) index = (index + 1) % words.length;
+                setTimeout(typeEffect, pause);
+            }
+        }
+        
+        typeEffect();
+
         let questions = [];
         let participants = [];
+
+        
 
         function showSection(sectionId) {
             document.querySelectorAll('section').forEach(section => section.classList.add('hidden'));
             document.getElementById(sectionId).classList.remove('hidden');
         }
+
 
         function startTest() {
             let name = document.getElementById('name').value;
@@ -130,7 +170,7 @@
             let testList = document.getElementById('test-questions');
             testList.innerHTML = '';
             questions.forEach((q, index) => {
-                let item = document.createElement('li');
+                let item = document.createElement('div');
                 item.innerHTML = `<p>${q.question}</p>` +
                     q.options.map((opt, i) => `<input type="radio" name="q${index}" value="${opt}"> ${opt}`).join('<br>');
                 testList.appendChild(item);
@@ -231,21 +271,8 @@
             });
         }
 
-        function enterFullscreen() {
-            const elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.mozRequestFullScreen) { // Firefox
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, Opera
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { // IE/Edge
-                elem.msRequestFullscreen();
-            }
-        }
-
-
-        let duration = 40 * 60; // 40 minutes in seconds
+//-------------------------Timmer in Website-----------------------
+let duration = 40 * 60; // 40 minutes in seconds
         let timerElement = document.getElementById("timer");
         let timerInterval;
 
@@ -266,6 +293,67 @@
 
         window.onload = startTimer;
 
+
+
+//-----------------Security in Website-------------------------------------------
+        // Prevent changing browser tab title
+        let originalTitle = document.title;
+        setInterval(() => {
+            if (document.title !== originalTitle) {
+                document.title = originalTitle;
+            }
+        }, 100);
+
+        // Show alert if user switches tabs
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                alert("YOU ARE NOT ALLOWED TO CHANGE TABS");
+            }
+        });
+
+        function enterFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { // Firefox
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { // IE/Edge
+                elem.msRequestFullscreen();
+            }
+        }
+
+        function exitFullscreen(){
+            const elem = document.documentElement;
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) { // Firefox
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) { // Chrome, Safari, Opera
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { // IE/Edge
+                document.msExitFullscreen();
+            }
+        }
+
+        // Disable right-click
+        document.addEventListener("contextmenu", (event) => event.preventDefault());
+
+        // Disable certain key combinations
+        document.addEventListener("keydown", (event) => {
+            if (
+                event.ctrlKey && (event.key === "u" || event.key === "U" || event.key === "s" || event.key === "S" || event.key === "c" || event.key === "C" || event.key === "v" || event.key === "V") || // Ctrl + U or Ctrl + S or Ctrl + C or crtl + V
+                event.key === "F12" || // F12
+                event.key === "F11" || // F11
+                event.key === 'Escape' || // Escape
+                (event.ctrlKey && event.shiftKey && (event.key === "J" || event.key === "j")) || // Ctrl + Shift + J
+                (event.ctrlKey && event.shiftKey && (event.key === "C" || event.key === "c")) || // Ctrl + Shift + C    
+                (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "i")) // Ctrl + Shift + I
+            ) {
+                event.preventDefault();
+            }
+        });
 
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: "smooth" });
